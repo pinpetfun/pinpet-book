@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PinPet Technical Documentation</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="SpinPet Technical Documentation">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <style>
+    .language-switcher {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+    .language-switcher select {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .language-switcher select:hover {
+      border-color: #42b983;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: 'SpinPet Technical Documentation',
+      repo: '',
+      loadSidebar: true,
+      auto2top: true,
+      subMaxLevel: 2,
+
+      // 多语言搜索支持
+      search: {
+        paths: 'auto',
+        placeholder: {
+          '/zh-cn/': '搜索',
+          '/ja/': '検索',
+          '/': 'Search'
+        },
+        noData: {
+          '/zh-cn/': '找不到结果',
+          '/ja/': '結果が見つかりません',
+          '/': 'No results!'
+        },
+        pathNamespaces: ['/zh-cn', '/ja']
+      },
+
+      // 自定义插件
+      plugins: [
+        // 语言检测插件
+        function(hook, vm) {
+          hook.beforeEach(function(html) {
+            var lang = location.hash.match(/#\/(zh-cn|ja)\//);
+            if (lang) {
+              if (lang[1] === 'zh-cn') {
+                document.documentElement.setAttribute('lang', 'zh-CN');
+              } else if (lang[1] === 'ja') {
+                document.documentElement.setAttribute('lang', 'ja');
+              }
+            } else {
+              document.documentElement.setAttribute('lang', 'en');
+            }
+            return html;
+          });
+        },
+
+        // 语言切换器插件
+        function(hook, vm) {
+          hook.mounted(function() {
+            var currentHash = location.hash;
+            var currentLang = 'en';
+            if (currentHash.includes('/zh-cn/')) {
+              currentLang = 'zh-cn';
+            } else if (currentHash.includes('/ja/')) {
+              currentLang = 'ja';
+            }
+
+            var languageSwitcher = `
+              <div class="language-switcher">
+                <select id="lang-select" onchange="switchLanguage(this.value)">
+                  <option value="en" ${currentLang === 'en' ? 'selected' : ''}>🇬🇧 English</option>
+                  <option value="zh-cn" ${currentLang === 'zh-cn' ? 'selected' : ''}>🇨🇳 简体中文</option>
+                  <option value="ja" ${currentLang === 'ja' ? 'selected' : ''}>🇯🇵 日本語</option>
+                </select>
+              </div>
+            `;
+
+            var sidebar = document.querySelector('.sidebar');
+            if (sidebar) {
+              sidebar.insertAdjacentHTML('afterbegin', languageSwitcher);
+            }
+          });
+
+          // 监听路由变化，更新语言选择器
+          hook.doneEach(function() {
+            var select = document.getElementById('lang-select');
+            if (select) {
+              var currentHash = location.hash;
+              if (currentHash.includes('/zh-cn/')) {
+                select.value = 'zh-cn';
+              } else if (currentHash.includes('/ja/')) {
+                select.value = 'ja';
+              } else {
+                select.value = 'en';
+              }
+            }
+          });
+        }
+      ]
+    };
+
+    // 语言切换函数
+    function switchLanguage(newLang) {
+      var currentPath = location.hash.replace(/^#\/(zh-cn\/|ja\/)?/, '');
+      var newHash = newLang === 'en' ? `#/${currentPath}` : `#/${newLang}/${currentPath}`;
+      location.hash = newHash;
+    }
+  </script>
+  <!-- Docsify v4 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <!-- KaTeX 数学公式支持 -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"/>
+  <script src="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script>
+  <script>
+    window.$docsify.plugins = [].concat(window.$docsify.plugins || [], function(hook) {
+      hook.doneEach(function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          throwOnError: false
+        });
+      });
+    });
+  </script>
+  <!-- Mermaid 图表支持 -->
+  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-mermaid@latest/dist/docsify-mermaid.js"></script>
+  <!-- 搜索插件 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <!--  emoji 解析 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+</body>
+</html>
