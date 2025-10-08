@@ -1,5 +1,4 @@
 * [首页](/zh-cn/)
-* [PinPet交易所简介](/zh-cn/pinpet_exchange_intro.md)
 * [技术革命：PinPet融合式交易引擎](/zh-cn/pinpet_hybrid_trading_engine.md)
 * [代币创建功能](/zh-cn/token_creation.md)
 * [现货交易功能](/zh-cn/spot_trading.md)
