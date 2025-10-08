@@ -3,6 +3,9 @@
 > Integrating "price, leverage, and liquidation" into a single engine
 > Making every click faster, more stable, and more worry-free
 
+**语言 / Language / Langue:**
+[English](/) | [中文](/zh-cn/) | [Français](/fr/)
+
 ---
 
 ## 🎯 Understanding Us in One Sentence
