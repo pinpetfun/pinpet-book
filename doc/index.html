@@ -42,14 +42,26 @@
         placeholder: {
           '/zh-cn/': '搜索',
           '/ja/': '検索',
+          '/es/': 'Buscar',
+          '/ko/': '검색',
+          '/ar/': 'بحث',
+          '/fr/': 'Rechercher',
+          '/ru/': 'Поиск',
+          '/de/': 'Suchen',
           '/': 'Search'
         },
         noData: {
           '/zh-cn/': '找不到结果',
           '/ja/': '結果が見つかりません',
+          '/es/': '¡Sin resultados!',
+          '/ko/': '결과 없음!',
+          '/ar/': 'لا توجد نتائج!',
+          '/fr/': 'Aucun résultat !',
+          '/ru/': 'Нет результатов!',
+          '/de/': 'Keine Ergebnisse!',
           '/': 'No results!'
         },
-        pathNamespaces: ['/zh-cn', '/ja']
+        pathNamespaces: ['/zh-cn', '/ja', '/es', '/ko', '/ar', '/fr', '/ru', '/de']
       },
 
       // 自定义插件
@@ -57,12 +69,24 @@
         // 语言检测插件
         function(hook, vm) {
           hook.beforeEach(function(html) {
-            var lang = location.hash.match(/#\/(zh-cn|ja)\//);
+            var lang = location.hash.match(/#\/(zh-cn|ja|es|ko|ar|fr|ru|de)\//);
             if (lang) {
               if (lang[1] === 'zh-cn') {
                 document.documentElement.setAttribute('lang', 'zh-CN');
               } else if (lang[1] === 'ja') {
                 document.documentElement.setAttribute('lang', 'ja');
+              } else if (lang[1] === 'es') {
+                document.documentElement.setAttribute('lang', 'es');
+              } else if (lang[1] === 'ko') {
+                document.documentElement.setAttribute('lang', 'ko');
+              } else if (lang[1] === 'ar') {
+                document.documentElement.setAttribute('lang', 'ar');
+              } else if (lang[1] === 'fr') {
+                document.documentElement.setAttribute('lang', 'fr');
+              } else if (lang[1] === 'ru') {
+                document.documentElement.setAttribute('lang', 'ru');
+              } else if (lang[1] === 'de') {
+                document.documentElement.setAttribute('lang', 'de');
               }
             } else {
               document.documentElement.setAttribute('lang', 'en');
@@ -80,6 +104,18 @@
               currentLang = 'zh-cn';
             } else if (currentHash.includes('/ja/')) {
               currentLang = 'ja';
+            } else if (currentHash.includes('/es/')) {
+              currentLang = 'es';
+            } else if (currentHash.includes('/ko/')) {
+              currentLang = 'ko';
+            } else if (currentHash.includes('/ar/')) {
+              currentLang = 'ar';
+            } else if (currentHash.includes('/fr/')) {
+              currentLang = 'fr';
+            } else if (currentHash.includes('/ru/')) {
+              currentLang = 'ru';
+            } else if (currentHash.includes('/de/')) {
+              currentLang = 'de';
             }
 
             var languageSwitcher = `
@@ -88,6 +124,12 @@
                   <option value="en" ${currentLang === 'en' ? 'selected' : ''}>🇬🇧 English</option>
                   <option value="zh-cn" ${currentLang === 'zh-cn' ? 'selected' : ''}>🇨🇳 简体中文</option>
                   <option value="ja" ${currentLang === 'ja' ? 'selected' : ''}>🇯🇵 日本語</option>
+                  <option value="es" ${currentLang === 'es' ? 'selected' : ''}>🇪🇸 Español</option>
+                  <option value="ko" ${currentLang === 'ko' ? 'selected' : ''}>🇰🇷 한국어</option>
+                  <option value="ar" ${currentLang === 'ar' ? 'selected' : ''}>🇸🇦 العربية</option>
+                  <option value="fr" ${currentLang === 'fr' ? 'selected' : ''}>🇫🇷 Français</option>
+                  <option value="ru" ${currentLang === 'ru' ? 'selected' : ''}>🇷🇺 Русский</option>
+                  <option value="de" ${currentLang === 'de' ? 'selected' : ''}>🇩🇪 Deutsch</option>
                 </select>
               </div>
             `;
@@ -107,6 +149,18 @@
                 select.value = 'zh-cn';
               } else if (currentHash.includes('/ja/')) {
                 select.value = 'ja';
+              } else if (currentHash.includes('/es/')) {
+                select.value = 'es';
+              } else if (currentHash.includes('/ko/')) {
+                select.value = 'ko';
+              } else if (currentHash.includes('/ar/')) {
+                select.value = 'ar';
+              } else if (currentHash.includes('/fr/')) {
+                select.value = 'fr';
+              } else if (currentHash.includes('/ru/')) {
+                select.value = 'ru';
+              } else if (currentHash.includes('/de/')) {
+                select.value = 'de';
               } else {
                 select.value = 'en';
               }
@@ -118,7 +172,7 @@
 
     // 语言切换函数
     function switchLanguage(newLang) {
-      var currentPath = location.hash.replace(/^#\/(zh-cn\/|ja\/)?/, '');
+      var currentPath = location.hash.replace(/^#\/(zh-cn\/|ja\/|es\/|ko\/|ar\/|fr\/|ru\/|de\/)?/, '');
       var newHash = newLang === 'en' ? `#/${currentPath}` : `#/${newLang}/${currentPath}`;
       location.hash = newHash;
     }
