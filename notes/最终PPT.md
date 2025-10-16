@@ -247,4 +247,4 @@ graph LR
 网站: https://devnet.pinpet.fun/
 GitHub: https://github.com/pinpetfun
 
-就展示我们的网址, 弄点样式,停在这里停个30秒吧..
+就展示我们的网址等, 弄点样式,停在这里停个30秒吧..
