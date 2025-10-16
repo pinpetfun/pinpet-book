@@ -241,6 +241,10 @@ graph LR
 配演示视频:  无
 ---
 
+### 第 7 页： The End 
 
+文档: https://doc.pinpet.fun/
+网站: https://devnet.pinpet.fun/
+GitHub: https://github.com/pinpetfun
 
-
+就展示我们的网址, 弄点样式,停在这里停个30秒吧..
