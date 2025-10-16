@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SpinPet SDK 文档</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <style>
+    /* 自定义样式 */
+    :root {
+      --theme-color: #42b883;
+      --theme-color-dark: #369870;
+      --text-color-base: #2c3e50;
+      --text-color-secondary: #7f8c8d;
+      --background: #ffffff;
+      --border-color: #ebedef;
+    }
+    
+    /* 主容器样式 */
+    .app-name {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin: 0 0.5rem;
+      color: var(--theme-color) !important;
+    }
+    
+    /* 侧边栏样式 */
+    .sidebar {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+      border-right: 1px solid var(--border-color);
+    }
+    
+    .sidebar ul li a {
+      color: rgba(255,255,255,0.8) !important;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 8px 15px;
+      transition: all 0.3s ease;
+    }
+    
+    .sidebar ul li a:hover {
+      color: #ffffff !important;
+      background: rgba(255,255,255,0.1);
+      transform: translateX(5px);
+    }
+    
+    .sidebar ul li.active > a {
+      color: #ffffff !important;
+      background: rgba(255,255,255,0.2);
+      border-left: 3px solid #ffffff;
+    }
+    
+    /* 内容区域样式 */
+    .content {
+      background: var(--background);
+    }
+    
+    .markdown-section {
+      max-width: 900px;
+      padding: 2rem;
+    }
+    
+    /* 标题样式 */
+    .markdown-section h1 {
+      background: linear-gradient(45deg, var(--theme-color), var(--theme-color-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    
+    .markdown-section h1::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(45deg, var(--theme-color), var(--theme-color-dark));
+      margin-top: 10px;
+      border-radius: 2px;
+    }
+    
+    .markdown-section h2 {
+      color: var(--theme-color);
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 0.5rem;
+    }
+    
+    .markdown-section h3 {
+      color: var(--theme-color-dark);
+    }
+    
+    /* 代码块样式 */
+    .markdown-section pre {
+      background: #f8f9fa;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .markdown-section code {
+      background: #f1f3f4;
+      color: #e83e8c;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.875em;
+    }
+    
+    /* 表格样式 */
+    .markdown-section table {
+      border-collapse: collapse;
+      margin: 1rem 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .markdown-section table th {
+      background: linear-gradient(45deg, var(--theme-color), var(--theme-color-dark));
+      color: white;
+      padding: 12px 15px;
+      font-weight: 600;
+    }
+    
+    .markdown-section table td {
+      padding: 10px 15px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .markdown-section table tr:hover {
+      background: #f8f9fa;
+    }
+    
+    /* 引用块样式 */
+    .markdown-section blockquote {
+      background: linear-gradient(135deg, rgba(66, 184, 131, 0.1), rgba(52, 152, 219, 0.1));
+      border-left: 4px solid var(--theme-color);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    /* 链接样式 */
+    .markdown-section a {
+      color: var(--theme-color);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--theme-color);
+      transition: all 0.3s ease;
+    }
+    
+    .markdown-section a:hover {
+      color: var(--theme-color-dark);
+      border-bottom: 1px solid var(--theme-color-dark);
+    }
+    
+    /* 列表样式 */
+    .markdown-section ul li::before {
+      content: '▶';
+      color: var(--theme-color);
+      margin-right: 8px;
+    }
+    
+    /* 数学公式样式 */
+    .katex {
+      font-size: 1.1em !important;
+    }
+    
+    .katex-display {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    /* 搜索框样式 */
+    .search input {
+      border-radius: 20px;
+      border: 2px solid var(--theme-color);
+      padding: 8px 15px;
+    }
+    
+    .search input:focus {
+      box-shadow: 0 0 10px rgba(66, 184, 131, 0.3);
+      outline: none;
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .markdown-section {
+        padding: 1rem;
+      }
+      
+      .markdown-section h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: 'SpinPet SDK Documentation',
+      repo: '',
+      loadSidebar: true,
+      subMaxLevel: 2,
+      search: 'auto',
+
+      // 多语言配置 - 默认为英文
+      fallbackLanguages: ['en'],
+      alias: {
+        '/.*/_sidebar.md': '/_sidebar.md',
+        '/zh-cn/(.*)': '/zh-cn/$1'
+      },
+
+      // 命名空间路由
+      nameLink: {
+        '/zh-cn/': '#/zh-cn/',
+        '/en/': '#/en/',
+        '/': '#/en/'
+      },
+
+      // 路由模式
+      routerMode: 'hash',
+      basePath: '/en/'
+    }
+  </script>
+  <!-- Docsify v4 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <!-- KaTeX 数学公式支持 -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"/>
+  <script src="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script>
+  <script>
+    window.$docsify.plugins = [].concat(function(hook) {
+      hook.doneEach(function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          throwOnError: false
+        });
+      });
+    });
+  </script>
+  <!-- Mermaid 图表支持 -->
+  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-mermaid@latest/dist/docsify-mermaid.js"></script>
+  <!-- 搜索插件 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+
+  <!-- 语言切换插件 -->
+  <script>
+    // 语言切换功能
+    window.$docsify.plugins = [].concat(window.$docsify.plugins || [], function(hook) {
+      hook.beforeEach(function(html) {
+        const currentLang = window.location.hash.includes('/zh-cn/') ? 'zh-cn' : 'en';
+        const langSwitcher = `
+          <div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+            <select onchange="switchLanguage(this.value)" style="padding: 8px 12px; border-radius: 5px; border: 2px solid #42b883; background: white; cursor: pointer; font-size: 14px;">
+              <option value="en" ${currentLang === 'en' ? 'selected' : ''}>English</option>
+              <option value="zh-cn" ${currentLang === 'zh-cn' ? 'selected' : ''}>简体中文</option>
+            </select>
+          </div>
+        `;
+        return langSwitcher + html;
+      });
+    });
+
+    function switchLanguage(lang) {
+      const currentPath = window.location.hash.replace('#/', '');
+      const pathWithoutLang = currentPath.replace(/^\/(en|zh-cn)\//, '');
+      window.location.hash = `#/${lang}/${pathWithoutLang || ''}`;
+    }
+  </script>
+</body>
+</html>
